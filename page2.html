@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="5;url=page2.html" />
-    <title>التخطي - الصفحة الأولى</title>
+    <title>التخطي - الصفحة الثانية</title>
     <style>
         body {
             margin: 0;
@@ -34,7 +33,7 @@
             color: #555;
             margin-bottom: 20px;
         }
-        .skip-button {
+        .skip-button, .continue-button {
             display: inline-block;
             background-color: #5865F2;
             color: white;
@@ -44,28 +43,34 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-        .skip-button:hover {
+        .skip-button:hover, .continue-button:hover {
             background-color: #4a56e2;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">مرحبًا بك في الصفحة الأولى</div>
+        <div class="title">مرحبًا بك في الصفحة الثانية</div>
         <div class="message">
-            سيتم تحويلك إلى الصفحة التالية خلال <span id="countdown">5</span> ثانية. إذا لم يتم ذلك، يمكنك النقر على الزر أدناه.
+            سيتم تحويلك إلى الصفحة التالية خلال <span id="countdown">10</span> ثانية. إذا لم يتم ذلك، يمكنك النقر على الزر أدناه.
         </div>
-        <a href="page2.html" class="skip-button" id="skipButton">تخطي الآن</a>
+        <a href="page3.html" class="skip-button" id="skipButton">تخطي الآن</a>
+        <a href="page3.html" class="continue-button hidden" id="continueButton">استمرار</a>
 
         <script>
             let countdownElement = document.getElementById('countdown');
             let skipButton = document.getElementById('skipButton');
-            let timeLeft = 5;
+            let continueButton = document.getElementById('continueButton');
+            let timeLeft = 10;
 
             const countdownInterval = setInterval(() => {
                 if (timeLeft <= 0) {
                     clearInterval(countdownInterval);
-                    window.location.href = "page2.html";
+                    skipButton.classList.add('hidden'); // إخفاء زر "تخطي الآن"
+                    continueButton.classList.remove('hidden'); // عرض زر "استمرار"
                 } else {
                     countdownElement.textContent = --timeLeft;
                 }
@@ -73,7 +78,11 @@
 
             skipButton.addEventListener('click', () => {
                 clearInterval(countdownInterval);
-                window.location.href = "page2.html";
+                window.location.href = "page3.html";
+            });
+
+            continueButton.addEventListener('click', () => {
+                window.location.href = "page3.html";
             });
         </script>
     </div>
