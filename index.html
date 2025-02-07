@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9278063156967184"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>التخطي - الصفحة الأولى</title>
@@ -48,12 +46,12 @@
             transition: background-color 0.3s ease;
             cursor: not-allowed;
             opacity: 0.6;
-            pointer-events: none; /* تعطيل التفاعل مع الزر */
+            pointer-events: none;
         }
         .skip-button.active {
             cursor: pointer;
             opacity: 1;
-            pointer-events: auto; /* تمكين التفاعل مع الزر */
+            pointer-events: auto;
         }
         .skip-button:hover {
             background-color: #4a56e2;
@@ -66,6 +64,7 @@
             border-radius: 5px;
             font-size: 16px;
             color: #333;
+            display: none; /* إخفاء الإعلان في البداية */
         }
     </style>
 </head>
@@ -76,7 +75,7 @@
             يمكنك التخطي بعد <span id="countdown">15</span> ثانية.
         </div>
         <a href="#" class="skip-button" id="skipButton" onclick="handleSkip()">تخطي الآن</a>
-        <div class="ad-space">
+        <div class="ad-space" id="adSpace">
             <!-- مكان الإعلان -->
             إعلان رقم 1
         </div>
@@ -84,17 +83,18 @@
         <script>
             let countdownElement = document.getElementById('countdown');
             let skipButton = document.getElementById('skipButton');
+            let adSpace = document.getElementById('adSpace'); // اختيار عنصر الإعلان
             let timeLeft = 15;
 
-            // تعطيل الزر في البداية
             skipButton.classList.remove('active');
 
             const countdownInterval = setInterval(() => {
                 if (timeLeft <= 0) {
-                    clearInterval(countdownInterval); // إيقاف العد التنازلي
+                    clearInterval(countdownInterval);
                     skipButton.classList.add('active'); // تمكين الزر
+                    adSpace.style.display = 'block'; // عرض الإعلان
                 } else {
-                    countdownElement.textContent = timeLeft--; // تحديث العد التنازلي
+                    countdownElement.textContent = timeLeft--;
                 }
             }, 1000);
 
