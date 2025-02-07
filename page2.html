@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>التخطي - الصفحة الثانية</title>
     <style>
+        /* نفس الأنماط السابقة */
         body {
             margin: 0;
             padding: 0;
@@ -22,6 +23,8 @@
             padding: 20px 40px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
         }
         .title {
             font-size: 24px;
@@ -33,7 +36,7 @@
             color: #555;
             margin-bottom: 20px;
         }
-        .skip-button, .continue-button {
+        .skip-button {
             display: inline-block;
             background-color: #5865F2;
             color: white;
@@ -42,12 +45,24 @@
             border-radius: 5px;
             font-size: 16px;
             transition: background-color 0.3s ease;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
-        .skip-button:hover, .continue-button:hover {
+        .skip-button.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+        .skip-button:hover {
             background-color: #4a56e2;
         }
-        .hidden {
-            display: none;
+        .ad-space {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
         }
     </style>
 </head>
@@ -55,35 +70,38 @@
     <div class="container">
         <div class="title">مرحبًا بك في الصفحة الثانية</div>
         <div class="message">
-            سيتم تحويلك إلى الصفحة التالية خلال <span id="countdown">10</span> ثانية. إذا لم يتم ذلك، يمكنك النقر على الزر أدناه.
+            سيتم تحويلك إلى الصفحة التالية خلال <span id="countdown">15</span> ثانية.
         </div>
-        <a href="page3.html" class="skip-button" id="skipButton">تخطي الآن</a>
-        <a href="page3.html" class="continue-button hidden" id="continueButton">استمرار</a>
+        <a href="#" class="skip-button" id="skipButton" onclick="handleSkip()">تخطي الآن</a>
+        <div class="ad-space">
+            <!-- مكان الإعلان -->
+            إعلان رقم 2
+        </div>
 
         <script>
             let countdownElement = document.getElementById('countdown');
             let skipButton = document.getElementById('skipButton');
-            let continueButton = document.getElementById('continueButton');
-            let timeLeft = 10;
+            let timeLeft = 15;
+
+            skipButton.classList.remove('active');
 
             const countdownInterval = setInterval(() => {
                 if (timeLeft <= 0) {
                     clearInterval(countdownInterval);
-                    skipButton.classList.add('hidden'); // إخفاء زر "تخطي الآن"
-                    continueButton.classList.remove('hidden'); // عرض زر "استمرار"
+                    skipButton.classList.add('active');
+                    window.location.href = "page3.html";
                 } else {
-                    countdownElement.textContent = --timeLeft;
+                    countdownElement.textContent = timeLeft--;
                 }
             }, 1000);
 
-            skipButton.addEventListener('click', () => {
-                clearInterval(countdownInterval);
-                window.location.href = "page3.html";
-            });
-
-            continueButton.addEventListener('click', () => {
-                window.location.href = "page3.html";
-            });
+            function handleSkip() {
+                if (!skipButton.classList.contains('active')) {
+                    alert("لم ينتهي الوقت بعد!");
+                } else {
+                    window.location.href = "page3.html";
+                }
+            }
         </script>
     </div>
 </body>
