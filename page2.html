@@ -47,10 +47,12 @@
             transition: background-color 0.3s ease;
             cursor: not-allowed;
             opacity: 0.6;
+            pointer-events: none; /* تعطيل التفاعل مع الزر */
         }
         .skip-button.active {
             cursor: pointer;
             opacity: 1;
+            pointer-events: auto; /* تمكين التفاعل مع الزر */
         }
         .skip-button:hover {
             background-color: #4a56e2;
@@ -70,7 +72,7 @@
     <div class="container">
         <div class="title">مرحبًا بك في الصفحة الثانية</div>
         <div class="message">
-            سيتم تحويلك إلى الصفحة التالية خلال <span id="countdown">15</span> ثانية.
+            يمكنك التخطي بعد <span id="countdown">15</span> ثانية.
         </div>
         <a href="#" class="skip-button" id="skipButton" onclick="handleSkip()">تخطي الآن</a>
         <div class="ad-space">
@@ -89,7 +91,6 @@
                 if (timeLeft <= 0) {
                     clearInterval(countdownInterval);
                     skipButton.classList.add('active');
-                    window.location.href = "page3.html";
                 } else {
                     countdownElement.textContent = timeLeft--;
                 }
